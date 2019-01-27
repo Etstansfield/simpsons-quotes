@@ -1,7 +1,12 @@
-<p *ngIf='currentQuote'>
-
-  Quote: {{currentQuote.quote}}<br/>
-  Character: {{currentQuote.character}}
-
+*Note - if there is no image and an error in the console about CORS - you may need to turn off CORS in your browser:<br/>
+<a href='https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome' target='_blank'>See Here</a>
+<div *ngIf='currentQuote'>
   <img *ngIf='currentImageSrc' [src]='currentImageSrc'>
-</p>
+  <div>
+    <p>
+      Quote: {{currentQuote.quote}}<br />
+      Character: {{currentQuote.character}}
+    </p>
+  </div>
+</div>
+<button (click)='getNewQuoteAndImage()'>New Quote</button>

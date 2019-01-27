@@ -23,7 +23,13 @@ export class QuotesComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.urlService.getUrl('QUOTE'));
+    this.getNewQuoteAndImage();
+  }
 
+  /**
+   * @description - get a new quote and image
+   */
+  getNewQuoteAndImage(): void {
     this.getQuote().pipe(
       map(
         data => this.currentQuote = data
@@ -45,9 +51,11 @@ export class QuotesComponent implements OnInit {
         );
       }
     );
-
   }
 
+  /**
+   * @description - get a random quote from the simpsons api
+   */
   getQuote(): Observable<any> {
     return this.httpService.get(this.urlService.getUrl('Quote')).pipe(
       map(data => {
@@ -62,12 +70,20 @@ export class QuotesComponent implements OnInit {
     );
   }
 
+  /**
+   * @description - search frinkiac for images related to the quote
+   * @param imagestring - the quote to search for
+   */
   getImage(imagestring: String): Observable<any> {
     return this.httpService.get(this.urlService.getUrl('IMAGEQUERY') + imagestring).pipe(
       map(data => data)
     );
   }
 
+  /**
+   * @description - create the img src strings used to generate the image
+   * @param results - the results from the frinkiac search
+   */
   createImageStrings(results: Image[]): String[] {
     // frikiac image strings are /img/ep/timestamp/size.jpg e.g.
     // https://frinkiac.com/img/S05E17/561260/large.jpg
