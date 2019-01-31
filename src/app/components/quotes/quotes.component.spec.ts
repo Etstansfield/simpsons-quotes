@@ -24,4 +24,16 @@ describe('QuotesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should generate an image string', () => {
+    // https://frinkiac.com/img/S05E17/561260/large.jpg
+    const imageObj = {
+      Episode: 'S05E17',
+      Timestamp: 561260,
+      Id: 0
+    };
+
+    expect(component.createImageStrings([imageObj])).toEqual(['https://frinkiac.com/img/S05E17/561260/large.jpg']);
+
+  })
 });
