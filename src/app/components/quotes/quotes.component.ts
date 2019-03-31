@@ -85,9 +85,9 @@ export class QuotesComponent implements OnInit {
           data2 => {
             console.log('+++ Image Data: ', data2, ' +++');
             // const images = this.createImageStrings(data2);
-            if (images.length >= 1) {
+            /*if (images.length >= 1) {
               this.currentImageSrc = images[0];
-            }
+            }*/
 
           },
           error => {
