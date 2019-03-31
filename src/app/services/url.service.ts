@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 const URLS = {
   'QUOTE': 'https://thesimpsonsquoteapi.glitch.me/quotes',
-  'IMAGEQUERY': 'https://frinkiac.com/api/search?q='
+  'IMAGEQUERY': 'https://frinkiac.com/api/search?q=',
+  'LOCALMACHINEQUOTE': 'http://localhost:3000/quote'
 };
 
 @Injectable({

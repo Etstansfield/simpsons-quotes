@@ -22,12 +22,57 @@ export class QuotesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.urlService.getUrl('QUOTE'));
-    this.getNewQuoteAndImage();
+    console.log(this.urlService.getUrl('LOCALMACHINEQUOTE'));
+    // this.getNewQuoteAndImage();
+    this.getQuoteAndImage();
+  }
+
+  /*****************************************************************************************
+   * NEW Code using new Nest.js backend to get around frinkiac's CORS                      *
+   ****************************************************************************************/
+
+   /**
+    * @description - get a quote and image from the nest js localhost server (3000)
+    */
+  getQuoteAndImage(): void {
+
+    this.getData().subscribe(
+      data => {
+        console.log(data);
+        this.currentQuote = data.Quote;
+        this.currentImageSrc = this.createImageString(data.Image);
+
+      },
+      error => {
+        console.error('+++ An Error has occured: ', error, ' +++');
+      }
+    );
+
   }
 
   /**
+   * @description - perform the http call to get the image and quote
+   */
+  getData(): Observable<any> {
+    return this.httpService.get(this.urlService.getUrl('LOCALMACHINEQUOTE')).pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(
+        error => {
+          console.error(error);
+          return error;
+        }
+      )
+    );
+  }
+
+  /*****************************************************************************************
+   * END OF NEW CODE                                                                       *
+   *****************************************************************************************/
+  /**
    * @description - get a new quote and image
+   * ! - OBSOLETE
    */
   getNewQuoteAndImage(): void {
     this.getQuote().pipe(
@@ -39,7 +84,7 @@ export class QuotesComponent implements OnInit {
         this.getImage(this.currentQuote.quote).subscribe(
           data2 => {
             console.log('+++ Image Data: ', data2, ' +++');
-            const images = this.createImageStrings(data2);
+            // const images = this.createImageStrings(data2);
             if (images.length >= 1) {
               this.currentImageSrc = images[0];
             }
@@ -55,6 +100,7 @@ export class QuotesComponent implements OnInit {
 
   /**
    * @description - get a random quote from the simpsons api
+   * ! - OBSOLETE
    */
   getQuote(): Observable<any> {
     return this.httpService.get(this.urlService.getUrl('Quote')).pipe(
@@ -73,6 +119,7 @@ export class QuotesComponent implements OnInit {
   /**
    * @description - search frinkiac for images related to the quote
    * @param imagestring - the quote to search for
+   * ! - OBSOLETE
    */
   getImage(imagestring: String): Observable<any> {
     return this.httpService.get(this.urlService.getUrl('IMAGEQUERY') + imagestring).pipe(
@@ -82,20 +129,20 @@ export class QuotesComponent implements OnInit {
 
   /**
    * @description - create the img src strings used to generate the image
-   * @param results - the results from the frinkiac search
+   * @param result - the results from the frinkiac search
    */
-  createImageStrings(results: Image[]): String[] {
+  createImageString(result: Image): String {
     // frikiac image strings are /img/ep/timestamp/size.jpg e.g.
     // https://frinkiac.com/img/S05E17/561260/large.jpg
 
-    const imageStrings = [];
+    // const imageStrings = [];
 
-    results.forEach(element => {
-      const imageString = 'https://frinkiac.com/img/' + element.Episode + '/' + String(element.Timestamp) + '/large.jpg';
-      imageStrings.push(imageString);
-    });
+    // results.forEach(element => {
+      const imageString = 'https://frinkiac.com/img/' + result.Episode + '/' + String(result.Timestamp) + '/large.jpg';
+      // imageStrings.push(imageString);
+    // });
 
-    return imageStrings;
+    return imageString;
   }
 
 }

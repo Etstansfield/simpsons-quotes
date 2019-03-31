@@ -21,7 +21,7 @@ describe('HttpService', () => {
     expect(service).toBeTruthy();
   });
 
-  /*it('should successfully get countries and cities', (done) => {
+  /*it('should produce the expected quote', (done) => {
     httpService.get('https://thesimpsonsquoteapi.glitch.me/quotes').subscribe(res => {
       expect(res).toEqual([
         {

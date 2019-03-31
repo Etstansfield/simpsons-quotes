@@ -1,12 +1,15 @@
-*Note - if there is no image and an error in the console about CORS - you may need to turn off CORS in your browser:<br/>
-<a href='https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome' target='_blank'>See Here</a>
 <div *ngIf='currentQuote'>
   <img *ngIf='currentImageSrc' [src]='currentImageSrc'>
   <div>
     <p>
-      Quote: {{currentQuote.quote}}<br />
-      Character: {{currentQuote.character}}
+      Quote: {{currentQuote}}<br />
+      <!--Character: {{currentQuote.character}}-->
     </p>
   </div>
 </div>
-<button (click)='getNewQuoteAndImage()'>New Quote</button>
+<button (click)='getQuoteAndImage()'>New Quote</button>
+<br/>
+<hr/>
+<br/>
+<i>Quote from: <a href='https://thesimpsonsquoteapi.glitch.me/'>Simpons Quotes</a><br/>
+Image from: <a href='https://frinkiac.com'>Frinkiac</a></i>
